@@ -84,9 +84,13 @@ extension ViewController: QRScannerViewDelegate {
 // MARK: - Private
 private extension ViewController {
     func openWeb(url: URL) {
-        UIApplication.shared.open(url, options: [:], completionHandler: { [weak self] _ in
-            self?.qrScannerView.rescan()
-        })
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: { [weak self] _ in
+                self?.qrScannerView.rescan()
+            })
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     func showAlert(code: String) {
@@ -97,7 +101,11 @@ private extension ViewController {
         }
         alertController.addAction(copyAction)
         let searchWebAction = UIAlertAction(title: "Search Web", style: .default) { [weak self] _ in
-            UIApplication.shared.open(URL(string: "https://www.google.com/search?q=\(code)")!, options: [:], completionHandler: nil)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(URL(string: "https://www.google.com/search?q=\(code)")!, options: [:], completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+            }
             self?.qrScannerView.rescan()
         }
         alertController.addAction(searchWebAction)
