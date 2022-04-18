@@ -11,4 +11,11 @@
          location = "group:QRScannerSample.xcodeproj">
       </FileRef>
    </Group>
+   <Group
+      location = "group:Sample2"
+      name = "Sample2">
+      <FileRef
+         location = "group:Sample2.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>
